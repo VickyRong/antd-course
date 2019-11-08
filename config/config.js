@@ -13,6 +13,10 @@ export default {
             component: 'Helloworld'
         },
         {
+            path: '/puzzlecard',
+            component: './Puzzlecard'
+        },
+        {
             path: '/dashboard',
             routes: [
             { path: '/dashboard/analysis', component: 'Dashboard/Analysis' },
@@ -24,7 +28,8 @@ export default {
     }],
     plugins:[
         ['umi-plugin-react',{
-            antd:true
+            antd:true,
+            dva:true
         }]
     ]
 }
