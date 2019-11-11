@@ -19,17 +19,25 @@ export default {
         {
             path: '/dashboard',
             routes: [
-            { path: '/dashboard/analysis', component: 'Dashboard/Analysis' },
-            { path: '/dashboard/monitor', component: 'Dashboard/Monitor' },
-            { path: '/dashboard/workplace', component: 'Dashboard/Workplace' }
+                { path: '/dashboard/analysis', component: 'Dashboard/Analysis' },
+                { path: '/dashboard/monitor', component: 'Dashboard/Monitor' },
+                { path: '/dashboard/workplace', component: 'Dashboard/Workplace' }
             ]
         },
         ]
     }],
+    proxy:{
+        '/dev':{
+            target:'http://jsonplaceholder.typicode.com',
+            changeOrigin:true,
+            pathRewrite: { "^/dev": "" }
+        }
+    },
     plugins:[
         ['umi-plugin-react',{
             antd:true,
             dva:true
         }]
     ]
+    
 }

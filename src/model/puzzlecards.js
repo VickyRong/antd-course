@@ -1,4 +1,6 @@
 import request from '../util/request.js'; 
+import { message } from 'antd';
+
 
 const delay = (millisecond) => {
     return new Promise((resolve) => {
@@ -14,27 +16,36 @@ export default {
     },
     effects:{ //副作用，处理异步操作
         *queryInitCards(_,sagaEffects) {
-            const { call,put } = sagaEffects;
-            const endPointURI = 'https://official-joke-api.appspot.com/random_joke';
-            const puzzle = yield call(request,endPointURI); 
-            yield put({ type:'addNewCard',payload:puzzle });  //触发reducer
+            try{
+                const { call,put } = sagaEffects;
+                // const endPointURI = 'https://official-joke-api.appspot.com/random_joke';
+                const endPointURI = "/dev/random_joke"; //mock数据
+                // const endPointURI = "/dev/posts/1"; //请求接口
+                
+                const puzzle = yield call(request,endPointURI); 
+                yield put({ type:'addNewCard',payload:puzzle });  //触发reducer
 
-            yield call(delay,1000); 
+                yield call(delay,1000); 
 
-            const puzzle2 = yield call(request,endPointURI);
-            yield put({ type:'addNewCard',payload:puzzle2 });
+                const puzzle2 = yield call(request,endPointURI);
+                yield put({ type:'addNewCard',payload:puzzle2 });
 
 
-            /**知识盲区**/
-            //Generator用法
-                //A------可以将异步函数看起来像同步函数一样调用，可以通过调用next()多次返回函数结果
-            //call用法？
-                //A------
-            //put用法？
-                //A------相当于dispatch一个action
-            //yield用法？
+                /**知识盲区**/
+                //Generator用法
+                    //A------可以将异步函数看起来像同步函数一样调用，可以通过调用next()多次返回函数结果
+                //call用法？
+                    //A------
+                //put用法？
+                    //A------相当于dispatch一个action
+                //yield用法？
 
-            //effects用法
+                //effects用法
+            }catch(e){
+                message.error('数据获取失败！')
+            }
+
+            
 
         }
     },
